@@ -5,15 +5,23 @@ Simple utility to convert PDF to IMG using Ghostscript and Python
 ## requirements
 python 2.7
 
-ghostscript (see `installation`)
+ghostscript
+
+python-resize-image
+
+pillow
 
 
 ## installation
 Fetch the `ghostscript` python dependency by running:
 
+    $ brew install ghostscript
+
+For the `pip` dependencies, run:
+
     $ pip install -r requirements.txt
 
-**Create a virtualenv for the previous step if you like**
+*Create a virtualenv for the previous step if you like*
 
 
 ## usage
