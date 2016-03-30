@@ -4,6 +4,7 @@ Simple utility to convert PDF to IMG using Ghostscript and Python
 
 ## requirements
 python 2.7
+
 ghostscript (see `installation`)
 
 
