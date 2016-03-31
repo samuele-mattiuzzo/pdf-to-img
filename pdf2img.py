@@ -31,7 +31,6 @@ def convert(pdf_input_path, img_output_path, extension='jpg'):
 def read_files(directory=INPUT_DIRECTORY, extension='.pdf'):
     # reads files in a directory with a specific extension
     files = glob('%s/*%s' % (directory ,extension))
-    print files
     return [
         f.replace('%s/' % directory, '')
         for f in files]
@@ -39,12 +38,13 @@ def read_files(directory=INPUT_DIRECTORY, extension='.pdf'):
 
 def resize_all(extension='.jpg'):
     # does the image resizing
+    print "Resizing all imgs..."
     for img in read_files(OUTPUT_DIRECTORY, extension):
         # keeps the name if normal, adds -t before the extension if thumb
         # doesn't overwrite, adds _ before the img name
         ipt = "%s/%s" % (OUTPUT_DIRECTORY, img)
         opt = "%s/_%s" % (OUTPUT_DIRECTORY, img)
-        opt_t = "%s/_t_%s" (OUTPUT_DIRECTORY, img)
+        opt_t = "%s/_t_%s" % (OUTPUT_DIRECTORY, img)
 
         with open(ipt, 'r+b') as f:
             with Image.open(f) as image:
