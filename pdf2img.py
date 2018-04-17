@@ -6,6 +6,12 @@ from glob import glob
 from PIL import Image
 from resizeimage import resizeimage
 
+try:
+    from conf import get_sizes
+except:
+    # fallback to default values
+    from _conf import get_sizes
+
 # some constants
 FULL_PATH = os.path.realpath(__file__)
 CURRENT_DIRECTORY = os.path.dirname(FULL_PATH)
@@ -35,7 +41,6 @@ def read_files(directory=INPUT_DIRECTORY, extension='.pdf'):
         f.replace('%s/' % directory, '')
         for f in files]
 
-
 def resize_all(extension='.jpg'):
     # does the image resizing
     print "Resizing all imgs..."
@@ -43,15 +48,24 @@ def resize_all(extension='.jpg'):
         # keeps the name if normal, adds -t before the extension if thumb
         # doesn't overwrite, adds _ before the img name
         ipt = "%s/%s" % (OUTPUT_DIRECTORY, img)
-        opt = "%s/_%s" % (OUTPUT_DIRECTORY, img)
-        opt_t = "%s/_t_%s" % (OUTPUT_DIRECTORY, img)
+        opt = "%s/%s" % (OUTPUT_DIRECTORY, img)
 
         with open(ipt, 'r+b') as f:
             with Image.open(f) as image:
-                normal = resizeimage.resize_width(image, 440)
-                normal.save(opt, image.format)
-                thumb = resizeimage.resize_width(image, 100)
-                thumb.save(opt_t, image.format)
+                for key, item in get_sizes():
+                    w = item.get('w')
+                    h = item.get('h')
+                    a = item.get('afflix')
+
+                    if w:
+                        tmp = resizeimage.resize_width(image, w)
+                    if h:
+                        tmp = resizeimage.resize_height(image, h)
+                    if a:
+                        opt = opt.replace(extension, a+extension)
+                    print "Saving %s with %s settings..." % (opt, key)
+                    tmp.save(opt, image.format)
+                    print "Done"
 
 
 # main
