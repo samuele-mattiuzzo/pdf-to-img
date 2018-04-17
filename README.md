@@ -31,3 +31,5 @@ For the `pip` dependencies, run:
     $ ./pdf2img
 
 3. Collect your output PNG files from the `output` folder
+
+[optional] If you need a particular setting or set of, copy `_conf.py` in `conf.py` and modify it as you need. Instructions inside.
