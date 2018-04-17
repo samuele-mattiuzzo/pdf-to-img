@@ -3,7 +3,6 @@
 
     - copy this file in conf.py
     - add as many items as you want and add them to SIZES
-    - import
 
     SIZES = {
         item,
@@ -13,16 +12,15 @@
 
     ITEM = {
         <name>: {
-            'w': <width>,
-            'h': <height>,
-            'affix': <prefix to assign to the filename>
+            'w': <width in pixel>,
+            'affix': <affix to assign to the filename>
         }
     }
 
 """
-
+## DEFAULT SIZES ##
 ITEM_DEFAULT = {'w': 450, 'affix': '_'}
-ITEM_DEFAULT_THUMBNAIL = {'w': 0, 'affix': '_t'}
+ITEM_DEFAULT_THUMBNAIL = {'w': 100, 'affix': '_t'}
 SIZES_DEFAULT = {
     'default': ITEM_DEFAULT,
     'default thumbnail': ITEM_DEFAULT_THUMBNAIL

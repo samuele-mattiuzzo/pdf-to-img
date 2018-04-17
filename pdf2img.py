@@ -31,8 +31,8 @@ def convert(pdf_input_path, img_output_path, extension='jpg'):
             "-r144",
             "-sOutputFile=" + img,
             pdf]
-    ghostscript.Ghostscript(*args)
-
+    gs = ghostscript.Ghostscript(*args)
+    gs.exit()
 
 def read_files(directory=INPUT_DIRECTORY, extension='.pdf'):
     # reads files in a directory with a specific extension
@@ -51,21 +51,22 @@ def resize_all(extension='.jpg'):
         opt = "%s/%s" % (OUTPUT_DIRECTORY, img)
 
         with open(ipt, 'r+b') as f:
-            with Image.open(f) as image:
-                for key, item in get_sizes():
+            s = get_sizes()
+            for k in s:
+                with Image.open(f) as image:
+                    item = s[k]
                     w = item.get('w')
-                    h = item.get('h')
-                    a = item.get('afflix')
+                    a = item.get('affix')
 
                     if w:
                         tmp = resizeimage.resize_width(image, w)
-                    if h:
-                        tmp = resizeimage.resize_height(image, h)
-                    if a:
-                        opt = opt.replace(extension, a+extension)
-                    print "Saving %s with %s settings..." % (opt, key)
-                    tmp.save(opt, image.format)
+
+                    out = opt.replace(extension, a+extension) if a else opt
+
+                    print "Saving %s with %s settings..." % (out, k)
+                    tmp.save(out, image.format)
                     print "Done"
+                    image.close()
 
 
 # main

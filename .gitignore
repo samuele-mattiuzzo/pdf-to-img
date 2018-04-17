@@ -25,6 +25,7 @@ var/
 *.egg
 *.DS_Store
 conf.py
+*.pyc
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
