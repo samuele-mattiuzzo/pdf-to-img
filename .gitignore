@@ -24,7 +24,7 @@ var/
 .installed.cfg
 *.egg
 *.DS_Store
-conf.py
+_conf.py
 *.pyc
 
 # PyInstaller
