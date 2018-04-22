@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-import os
-import ghostscript
+# -*- coding: utf-8 -*-
+import os, subprocess
 from glob import glob
 
 from PIL import Image
@@ -20,19 +20,19 @@ OUTPUT_DIRECTORY = os.path.join(CURRENT_DIRECTORY, 'output')
 
 
 # some functions
-def convert(pdf_input_path, img_output_path, extension='jpg'):
+def convert():
     # converts the pdf input into the img output
-    img = OUTPUT_DIRECTORY + '/' + img_output_path + '.' + extension
-    pdf = INPUT_DIRECTORY + '/' + pdf_input_path
+    CMD = '''
+        rm -r ./input/*.jpg
 
-    args = ["pdf2img",  # actual value doesn't matter
-            "-dNOPAUSE",
-            "-sDEVICE=jpeg",
-            "-r144",
-            "-sOutputFile=" + img,
-            pdf]
-    gs = ghostscript.Ghostscript(*args)
-    gs.exit()
+        find ./input -type f -name '*.pdf' -print0 |
+        while IFS= read -r -d "" file
+          do convert -verbose -density 300 "${file}" "${file%.*}.jpg"
+        done
+
+        mv ./input/*.jpg ./output
+    '''
+    subprocess.call(CMD, shell=True)
 
 def read_files(directory=INPUT_DIRECTORY, extension='.pdf'):
     # reads files in a directory with a specific extension
@@ -72,11 +72,8 @@ def resize_all(extension='.jpg'):
 # main
 if __name__ == "__main__":
 
-    for pdf in read_files(INPUT_DIRECTORY, '.pdf'):
-        # pdf is the relative filename
-        img = pdf.replace('.pdf', '')
-        print "Converting %s to %s.jpg" % (pdf, img)
-        convert(pdf, img)
+    # converts the pdf files into jpg
+    convert()
 
     # resize the output
     resize_all()

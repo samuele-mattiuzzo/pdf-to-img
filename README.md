@@ -1,21 +1,23 @@
 # pdf-to-img
-Simple utility to convert PDF to IMG using Ghostscript and Python
+Simple utility to convert PDF to IMG using ImageMagick and Python
 
 
 ## requirements
 python 2.7
 
-ghostscript
+imagemagick
 
 python-resize-image
 
 pillow
 
+bash
 
 ## installation
-Fetch the `ghostscript` python dependency by running:
+Fetch the `imagemagick` bash dependency by running:
 
-    $ brew install ghostscript
+    $ brew update
+    $ brew install imagemagick
 
 For the `pip` dependencies, run:
 
@@ -30,6 +32,6 @@ For the `pip` dependencies, run:
 
     $ ./pdf2img
 
-3. Collect your output PNG files from the `output` folder
+3. Collect your output JPG files from the `output` folder
 
 [optional] If you need a particular setting or set of, copy `_conf.py` in `conf.py` and modify it as you need. Instructions inside.
