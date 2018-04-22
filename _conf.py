@@ -27,8 +27,12 @@ SIZES_DEFAULT = {
 }
 
 ## CUSTOM SIZES ##
-ITEM = None
-SIZES = None
+ITEM_HERO_PAGE = {'w': 1100, 'affix': '_hero'}
+ITEM_STANDARD = {'w': 1100, 'affix': '_standard'}
+SIZES = {
+    'hero': ITEM_HERO_PAGE,
+    'standard': ITEM_STANDARD
+}
 
 def get_sizes():
     return SIZES_DEFAULT if not SIZES else SIZES

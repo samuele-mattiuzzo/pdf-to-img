@@ -57,10 +57,7 @@ def resize_all(extension='.jpg'):
                     item = s[k]
                     w = item.get('w')
                     a = item.get('affix')
-
-                    if w:
-                        tmp = resizeimage.resize_width(image, w)
-
+                    tmp = resizeimage.resize_width(image, w)
                     out = opt.replace(extension, a+extension) if a else opt
 
                     print "Saving %s with %s settings..." % (out, k)
